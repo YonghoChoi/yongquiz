@@ -13,7 +13,7 @@
         <span class="hzt-center subtitle join-game-text">Join the game</span>
         <div class="hzt-center nickname">
           <input type="text" id="nickname" />
-          <button id="btn-join">join</button>
+          <button id="btn-join" @click="goToQuestionPage">join</button>
         </div>
       </div>
     </div>
@@ -21,7 +21,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    goToQuestionPage() {
+      this.$router.push("/question");
+    }
+  }
+};
 </script>
 
 <style>
@@ -29,12 +35,6 @@ export default {};
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-.wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 400px 400px;
 }
 
 .header {
@@ -49,25 +49,6 @@ export default {};
   background-color: #25076b;
   width: 100%;
   height: 400px;
-}
-
-.center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.vtc-center {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.hzt-center {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .join {
