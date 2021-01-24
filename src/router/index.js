@@ -31,6 +31,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   document.title = "Qube";
+  next();
 });
 
 export default router;

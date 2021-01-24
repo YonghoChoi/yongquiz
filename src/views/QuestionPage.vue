@@ -170,7 +170,7 @@ export default {
       }
 
       if (this.step + 1 >= this.questions.length) {
-        this.nextBtnText = "순위보기";
+        this.nextBtnText = "점수보기";
       } else {
         this.nextBtnText = "다음";
       }
