@@ -1,0 +1,23 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-yongquiz-dev-200456-authRole",
+            "UnauthRoleArn": "arn:aws:iam::992189553983:role/amplify-yongquiz-dev-200456-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::992189553983:role/amplify-yongquiz-dev-200456-authRole",
+            "Region": "ap-northeast-2",
+            "DeploymentBucketName": "amplify-yongquiz-dev-200456-deployment",
+            "UnauthRoleName": "amplify-yongquiz-dev-200456-unauthRole",
+            "StackName": "amplify-yongquiz-dev-200456",
+            "StackId": "arn:aws:cloudformation:ap-northeast-2:992189553983:stack/amplify-yongquiz-dev-200456/ff67d530-5e33-11eb-a86d-0a6026772f36",
+            "AmplifyAppId": "d1it6sbaq5yl8w"
+        },
+        "categories": {
+            "hosting": {
+                "amplifyhosting": {
+                    "appId": "d1it6sbaq5yl8w",
+                    "type": "cicd"
+                }
+            }
+        }
+    }
+}

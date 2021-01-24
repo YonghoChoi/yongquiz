@@ -62,11 +62,11 @@ export default {
           question: "우리 프로젝트 이름은?",
           answers: [
             {
-              text: `Kahoot`,
+              text: `Quizzle`,
               isCorrect: false,
             },
             {
-              text: `Depromeet`,
+              text: `Qubric`,
               isCorrect: false,
             },
             {
@@ -81,22 +81,22 @@ export default {
         },
         {
           score: 100,
-          question: "다음 코드 중 문자열을 표준 출력으로 표시하는 것은?",
+          question: "재권이 결혼은 몇 월?",
           answers: [
             {
-              text: `print:("이름이 모니?")`,
+              text: `3월`,
               isCorrect: false,
             },
             {
-              text: `print("이름이 모니?)`,
+              text: `6월`,
               isCorrect: false,
             },
             {
-              text: `print("이름이 모니?")`,
+              text: `10월`,
               isCorrect: true,
             },
             {
-              text: `Print("이름이 모니?")`,
+              text: `12월`,
               isCorrect: false,
             },
           ],
