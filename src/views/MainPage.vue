@@ -2,7 +2,7 @@
   <div>
     <div class="header">
       <div class="hzt-center title service-name-text">Qube</div>
-      <div class="hzt-center subtitle game-mode-text">Single Player game</div>
+      <div class="hzt-center subtitle game-mode-text">혼자 하기</div>
       <div class="hzt-center quiz-subject">
         <span class="center quiz-text">Qube 만들기</span>
       </div>
@@ -10,10 +10,10 @@
 
     <div class="content">
       <div class="hzt-center join">
-        <span class="hzt-center subtitle join-game-text">Join the game</span>
+        <span class="hzt-center subtitle join-game-text">게임 시작하기</span>
         <div class="hzt-center nickname">
-          <input type="text" id="nickname" />
-          <button id="btn-join" @click="goToQuestionPage">join</button>
+          <input type="text" id="nickname" placeholder="닉네임" v-model="nickname" />
+          <button id="btn-join" @click="goToQuestionPage">시작!</button>
         </div>
       </div>
     </div>
@@ -22,8 +22,17 @@
 
 <script>
 export default {
+  data: () => {
+    return {
+      nickname: "",
+    }
+  },
   methods: {
     goToQuestionPage() {
+      if(this.nickname === "") {
+        alert("닉네임을 입력해주세요.");
+        return;
+      }
       this.$router.push("/question");
     }
   }
@@ -100,5 +109,13 @@ export default {
   color: black;
   font-size: 3rem;
   font-weight: 600;
+}
+
+#btn-join {
+  background-color: green;
+  width: 70px;
+  height: 40px;
+  margin-left: 10px;
+  color: white;
 }
 </style>

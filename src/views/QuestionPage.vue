@@ -5,20 +5,26 @@
       <div class="hzt-center question-text">{{ questions[step].question }}</div>
     </div>
 
+    <div class="score-popup" :style="getScorePopupStyle()" v-if="isResult">
+      <div class="center">
+        <div class="score-text">{{ incScore > 0? "정답입니다.": "틀렸습니다." }}</div>
+        <div class="score-text">+{{ incScore }}</div>
+      </div>
+    </div>
     <div class="hzt-center banner">
       <span class="center banner-text">Qube</span>
     </div>
 
     <div v-if="isResult" class="bl-next">
-      <button class="btn-next" @click="next">Next</button>
+      <button class="btn-next" @click="next">{{ nextBtnText }}</button>
     </div>
 
     <div class="hzt-center answers">
       <div v-if="isResult">
         <div
           class="answer"
-          v-for="item in questions[step].answers"
-          :key="item"
+          v-for="(item, i) in questions[step].answers"
+          :key="i"
           :style="getResultStyle(item)"
         >
           <div class="answer-text">{{ item.text }}</div>
@@ -28,10 +34,11 @@
         <div
           class="answer"
           v-for="(item, i) in questions[step].answers"
-          :key="item"
+          :key="i"
           :style="getAnswerStyle(i)"
+          @click="selectAnswer(i)"
         >
-          <div class="answer-text" @click="selectAnswer(i)">
+          <div class="answer-text">
             {{ item.text }}
           </div>
         </div>
@@ -46,6 +53,9 @@ export default {
     return {
       step: 0,
       score: 0,
+      scoreTitle: "", // 문제 선택 후 결과 문구 (정답입니다. 틀렸습니다. 등)
+      incScore: 0,  // 획득한 점수
+      nextBtnText: "다음",
       questions: [
         {
           score: 100,
@@ -97,6 +107,12 @@ export default {
     };
   },
   methods: {
+    initialize() {
+      this.step = 0;
+      this.score = 0;
+      this.incScore = 0;
+      this.isResult = false;
+    },
     getAnswerStyle(index) {
       if (this.answerColors.length < index) {
         return {
@@ -111,28 +127,52 @@ export default {
     getResultStyle(item) {
       if (item.isCorrect) {
         return {
-          backgroundColor: "green",
+          backgroundColor: "#68bf3a",
         };
       } else {
         return {
-          backgroundColor: "red",
+          backgroundColor: "#ff3457",
+        };
+      }
+    },
+    getScorePopupStyle() {
+      if (this.incScore > 0) {
+        return {
+          backgroundColor: "#68bf3a",
+        };
+      } else {
+        return {
+          backgroundColor: "#ff3457",
         };
       }
     },
     selectAnswer(index) {
+      console.log(
+        `step : ${this.step}, index : ${index}, data : ${
+          this.questions[this.step].answers[index]
+        }`
+      );
       const selectedAnswer = this.questions[this.step].answers[index];
-      if(selectedAnswer.isCorrect) {
-        this.score += this.questions[this.step].score;
-        alert(`정답입니다.\n현재 점수는 ${this.score} 입니다.`);
+      const incScore = this.questions[this.step].score;
+      if (selectedAnswer.isCorrect) {
+        this.score += incScore;
+        this.incScore = incScore;
       } else {
-        alert("틀렸습니다.");
+        this.incScore = 0;
       }
       this.isResult = true;
     },
     next() {
-      if(++this.step >= this.questions.length) {
-        this.step = 0;
-        alert("퀴즈가 완료되었습니다.");
+      if (++this.step >= this.questions.length) {
+        alert(`퀴즈가 완료되었습니다.\n총점 : ${this.score}`);
+        this.initialize();
+        this.$router.push("/");
+      }
+
+      if (this.step + 1 >= this.questions.length) {
+        this.nextBtnText = "순위보기";
+      } else {
+        this.nextBtnText = "다음";
       }
 
       this.isResult = false;
@@ -169,26 +209,25 @@ export default {
 }
 
 .answers {
-  top: 500px;
+  top: 450px;
   width: 100%;
 }
 
 .answer {
   border: 1px solid red;
   display: inline-block;
-  margin-top: 20px;
-  margin-left: 20px;
+  margin-top: 5px;
+  margin-left: 10px;
   background-color: #461f8c;
-  width: 47%;
-  height: 80px;
+  width: 48%;
+  height: 100px;
   cursor: pointer;
 }
 
 .answer-text {
-  /* vertical-align: middle; */
   margin-top: 30px;
   color: rgb(255, 255, 255);
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 400;
 }
 
@@ -251,8 +290,25 @@ export default {
 
 .btn-next {
   background-color: blue;
-  width: 70px;
+  width: 90px;
   height: 40px;
   color: white;
+}
+
+.score-popup {
+  position: absolute;
+  background-color: #65bf39;
+  top: 100px;
+  width: 100%;
+  height: 100px;
+  font-size: 1rem;
+  font-weight: 400;
+  z-index: 1;
+}
+
+.score-text {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 400;
 }
 </style>
